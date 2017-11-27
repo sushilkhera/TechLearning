@@ -16,6 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+/**
+ * 
+ * @author sushilkhera
+ *
+ */
 @Entity
 @Table(name="TOPIC")
 public class Topic implements Serializable{
@@ -25,7 +31,7 @@ public class Topic implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@SequenceGenerator(name = "topicseq", sequenceName="TOPIC_SEQ",initialValue=1)
+	@SequenceGenerator(name = "topicseq", sequenceName="TOPIC_SEQ",initialValue=1,allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="topicseq")
 	@Column(name="TOPIC_ID")
 	private long topicId;
@@ -33,7 +39,8 @@ public class Topic implements Serializable{
 	private String name;
 	@Column(name="DESCRIPTION")
 	private String description;
-	@OneToMany(/*mappedBy="topic",*/cascade=CascadeType.ALL,orphanRemoval=true,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="topic",cascade=CascadeType.ALL,/*orphanRemoval=true,*/fetch=FetchType.EAGER,targetEntity=Course.class)
+	@JsonManagedReference
 	private Set<Course> courses = new HashSet<Course>();
 	
 	public long getTopicId() {

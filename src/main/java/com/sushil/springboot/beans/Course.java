@@ -13,8 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CascadeType;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+/**
+ * 
+ * @author sushilkhera
+ *
+ */
 @Entity
 @Table(name="COURSE")
 public class Course implements Serializable{
@@ -23,16 +27,17 @@ public class Course implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@SequenceGenerator(name = "courseseq", sequenceName="COURSE_SEQ",initialValue=1)
+	@SequenceGenerator(name = "courseseq", sequenceName="COURSE_SEQ",initialValue=1,allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="courseseq")
+	@Column(name="COURSE_ID")
 	private long courseId;
 	@Column(name="COURSE_NAME",unique=true)
 	private String name;
 	@Column(name="DESCRIPTION")
 	private String description;
-	/*@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="TOPIC_ID")
-	private Topic topic;*/
+	@ManyToOne(fetch=FetchType.EAGER) @JoinColumn(name="TOPIC_ID")
+	@JsonBackReference
+	private Topic topic;
 	
 	public long getCourseId() {
 		return courseId;
@@ -52,12 +57,12 @@ public class Course implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/*public Topic getTopic() {
+	public Topic getTopic() {
 		return topic;
 	}
 	public void setTopic(Topic topic) {
 		this.topic = topic;
-	}*/
+	}
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", name=" + name + ", description=" + description /*+ ", topic=" + topic*/
