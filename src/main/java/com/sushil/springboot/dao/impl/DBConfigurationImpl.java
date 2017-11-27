@@ -1,6 +1,6 @@
 package com.sushil.springboot.dao.impl;
 
-/*import java.sql.SQLException;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 import javax.validation.constraints.NotNull;
@@ -8,14 +8,18 @@ import javax.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-*/
+
 import com.sushil.springboot.repo.DBConfiguration;
 
-//import oracle.jdbc.pool.OracleDataSource;
-
-//@Configuration
-//@ConfigurationProperties(prefix="spring.datasource")
-public class DBConfigurationImpl implements DBConfiguration {/*
+import oracle.jdbc.pool.OracleDataSource;
+/**
+ * This class provides custom DataSource object using few external properties 
+ * @author sushilkhera
+ *
+ */
+@Configuration
+@ConfigurationProperties(prefix="spring.datasource")
+public class DBConfigurationImpl implements DBConfiguration {
 
 	@NotNull
 	private String username;
@@ -49,7 +53,7 @@ public class DBConfigurationImpl implements DBConfiguration {/*
 	}
 
 	@Override
-	@Bean public DataSource getDataSource1() throws SQLException {
+	@Bean public DataSource getDataSource() throws SQLException {
 		System.out.println(toString());
 		OracleDataSource datasource = new OracleDataSource();
 		datasource.setUser(getUsername());
@@ -64,4 +68,4 @@ public class DBConfigurationImpl implements DBConfiguration {/*
 	public String toString() {
 		return "DBConfigurationImpl [username=" + username + ", password=" + password + ", url=" + url + "]";
 	}
-*/}
+}

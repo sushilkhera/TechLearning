@@ -1,10 +1,10 @@
 package com.sushil.springboot.repo;
 
-//import java.sql.SQLException;
+import java.sql.SQLException;
 
-//import javax.sql.DataSource;
+import javax.sql.DataSource;
 
-public interface DBConfiguration {/*
+public interface DBConfiguration {
 	
-	public DataSource getDataSource1() throws SQLException;
-*/}
+	public DataSource getDataSource() throws SQLException;
+}
