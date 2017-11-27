@@ -7,13 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sushil.springboot.beans.Topic;
+import com.sushil.springboot.repo.TopicRepository;
 import com.sushil.springboot.repo.TopicServiceRepo;
 import com.sushil.springboot.service.TopicService;
-
+/**
+ * 
+ * @author sushilkhera
+ *
+ */
 @Service(value="topicImpl")
 public class TopicServiceImpl implements TopicService{
 	@Autowired
 	TopicServiceRepo topicServiceRepo;
+	@Autowired
+	TopicRepository topicRepository;
 	
 	public Topic getTopic(long topicId) {
 		System.out.println("Service Layer::topicId="+topicId);
@@ -29,7 +36,10 @@ public class TopicServiceImpl implements TopicService{
 	@Override
 	public void addTopic(Topic topic) {
 		System.out.println("Service Layer::"+topic.toString());
+		//Saving a Topic object using Spring data commons
 		topicServiceRepo.save(topic);
+		//Saving a Topic object using JPA EntityManager
+		//topicRepository.saveTopic(topic);
 	}
 
 	@Override
